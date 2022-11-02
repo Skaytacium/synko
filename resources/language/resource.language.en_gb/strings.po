@@ -1,0 +1,52 @@
+# Kodi Media Center language file
+# Addon Name: synko
+# Addon id: script.service.synko
+# Addon Provider: Skaytacium
+msgid ""
+msgstr ""
+"Project-Id-Version: synko\n"
+"POT-Creation-Date: 2022-11-1 12:00+0000\n"
+"PO-Revision-Date: 2022-11-1 12:00+0000\n"
+"Last-Translator: Skaytacium\n"
+"Language-Team: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#32000"
+msgid "Syncplay"
+msgstr ""
+
+msgctxt "#32001"
+msgid "Server"
+msgstr ""
+
+msgctxt "#32002"
+msgid "Address"
+msgstr ""
+
+msgctxt "#32003"
+msgid "Port"
+msgstr ""
+
+msgctxt "#32004"
+msgid "Username"
+msgstr ""
+
+msgctxt "#32005"
+msgid "Chat"
+msgstr ""
+
+msgctxt "#32006"
+msgid "Debug"
+msgstr ""
+
+msgctxt "#32007"
+msgid "Other"
+msgstr ""
+
+msgctxt "#32008"
+msgid "Room"
+msgstr ""

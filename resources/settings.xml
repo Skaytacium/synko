@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings version="1">
+	<section id="script.service.synko">
+		<category label="32000" id="syncplay">
+			<group label="32001" id="server">
+				<setting label="32002" id="address" type="string" help="">
+					<level>0</level>
+					<default>syncplay.pl</default>
+					<control type="edit" format="string">
+						<heading>32002</heading>
+					</control>
+				</setting>
+				<setting label="32003" id="port" type="integer" help="">
+					<level>0</level>
+					<default>8999</default>
+					<control type="edit" format="integer">
+						<heading>32003</heading>
+					</control>
+				</setting>
+				<setting label="32004" id="user" type="string" help="">
+					<level>0</level>
+					<default>synkoclient</default>
+					<control type="edit" format="string">
+						<heading>32004</heading>
+					</control>
+				</setting>
+				<setting label="32008" id="room" type="string" help="">
+					<level>0</level>
+					<default>room</default>
+					<control type="edit" format="string">
+						<heading>32008</heading>
+					</control>
+				</setting>
+			</group>
+			<group label="32007" id="other">
+				<setting label="32005" id="chat" type="boolean" help="" class="">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"></control>
+				</setting>
+				<setting label="32006" id="debug" type="boolean" help="" class="">
+					<level>3</level>
+					<default>false</default>
+					<control type="toggle"></control>
+				</setting>
+			</group>
+		</category>
+	</section>
+</settings>

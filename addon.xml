@@ -1,0 +1,21 @@
+<?xml version="1.0.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.service.synko" name="synko" version="1.0.0" provider-name="Skaytacium">
+	<extension point="xbmc.service" library="addon.py"/>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Syncplay on Kodi</summary>
+		<description lang="en">Syncplay on Kodi</description>
+		<disclaimer lang="en"></disclaimer>
+		<language>en</language>
+		<platform>all</platform>
+		<license>MIT</license>
+		<website>https://skaytacium.com/projects/synko</website>
+		<forum>https://github.com/Skaytacium/synko/issues</forum>
+		<source>http://github.com/Skaytacium/synko</source>
+		<news> 1.0.0
+		</news>
+		<assets>
+			<icon>resources/icon.png</icon>
+			<fanart>resources/fanart.png</fanart>
+		</assets>
+	</extension>
+</addon>
