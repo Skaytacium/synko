@@ -1,0 +1,2 @@
+# synko
+Syncplay on Kodi
