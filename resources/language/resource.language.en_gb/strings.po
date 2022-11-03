@@ -50,3 +50,7 @@ msgstr ""
 msgctxt "#32008"
 msgid "Room"
 msgstr ""
+
+msgctxt "#32009"
+msgid "Password"
+msgstr ""

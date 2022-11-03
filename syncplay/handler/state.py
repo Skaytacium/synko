@@ -1,29 +1,37 @@
 from time import time
+
 import syncplay.util as util
 
+# Store this
 _state = {
-    "State": {
-        "ping": {
-            "latencyCalculation": 0,
-            "clientLatencyCalculation": 0.0,
-            "clientRtt": 0
-        },
-        "playstate": {
-            "position": 0.0,
-            "paused": True
-        }
+    "ping": {
+        "latencyCalculation": 0,
+        "clientLatencyCalculation": 0.0,
+        "clientRtt": 0
+    },
+    "playstate": {
+        "position": 0.0,
+        "paused": True
     }
 }
 
-def main(sping: dict):
+
+def handle(info: dict):
+    sping = info["ping"]
     # Just return this to server, it'll handle generation too.
-    _state["State"]["ping"]["latencyCalculation"] = sping["State"]["ping"]["latencyCalculation"]
+    _state["ping"]["latencyCalculation"] = sping["latencyCalculation"]
     # Server will return this and generation will be handled here.
-    _state["State"]["ping"]["clientLatencyCalculation"] = time()
+    _state["ping"]["clientLatencyCalculation"] = time()
     # Server needs to acknowledge our CLC and send an RTT for us to calculate ours.
-    if "clientLatencyCalculation" in sping["State"]["ping"]:
-        _state["State"]["ping"]["clientRtt"] = util.getrtt(
-            sping["State"]["ping"]["clientLatencyCalculation"],
-            sping["State"]["ping"]["serverRtt"]
+    if "clientLatencyCalculation" in sping:
+        _state["ping"]["clientRtt"] = util.getrtt(
+            sping["clientLatencyCalculation"],
+            sping["serverRtt"]
         )
-    return _state
+
+    return { "State":
+        _state
+    }
+
+# def update(position: float, paused: bool):
+    

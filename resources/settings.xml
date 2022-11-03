@@ -17,6 +17,17 @@
 						<heading>32003</heading>
 					</control>
 				</setting>
+				<setting label="32009" id="password" type="string" help="">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string">
+						<heading>32009</heading>
+						<hidden>true</hidden>
+					</control>
+				</setting>
 				<setting label="32004" id="user" type="string" help="">
 					<level>0</level>
 					<default>synkoclient</default>

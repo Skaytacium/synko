@@ -1,9 +1,10 @@
-import socket
-import json
+from json import dumps, loads
+from socket import AF_INET, SOCK_STREAM, socket
+
 
 class Connection:
     def __init__(self, host: str, port: int, debug = False):
-        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.sock = socket(AF_INET, SOCK_STREAM)
         self.sock.connect((host, port))
         self.debug = debug
 
@@ -13,17 +14,11 @@ class Connection:
         data = self.sock.recv(4096).decode("utf-8").split("\r\n")[:-1]
         retdat = []
         for line in data:
-            line = json.loads(line)
-            if self.debug:
-                print("<<<")
-                print(line)
+            line = loads(line)
             retdat.append(line)
         return retdat
         
     def send(self, data: dict):
-        jsondat = json.dumps(data)
-        if self.debug:
-            print(">>>")
-            print(jsondat)
+        jsondat = dumps(data)
         # Uses \r\n by default. Why?
         self.sock.sendall((jsondat + "\r\n").encode("utf-8"))
