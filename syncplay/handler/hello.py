@@ -1,8 +1,10 @@
 from hashlib import md5
 
+from syncplay.socket import send
+
 
 def dispatch(user: str, password: str, room: str, chat: str):
-    return {"Hello": {
+    send({"Hello": {
         "username": user,
         "password": md5(password.encode()).hexdigest() if password is not "" else "",
         "room": {"name": room},
@@ -17,4 +19,4 @@ def dispatch(user: str, password: str, room: str, chat: str):
             "managedRooms": "false"
         },
         "motd": ""
-    }}
+    }})

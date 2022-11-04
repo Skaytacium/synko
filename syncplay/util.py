@@ -1,5 +1,7 @@
 from time import time
 
+from xbmcaddon import Addon
+
 # These need to be stored
 fd = 0
 avrtt = 0
@@ -22,3 +24,7 @@ def getrtt(clc, srtt):
         fd = avrtt / 2
 
     return crtt
+
+gs = Addon().getSetting
+gsi = Addon().getSettingInt
+gsb = Addon().getSettingBool

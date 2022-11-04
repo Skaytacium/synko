@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings version="1">
-	<section id="script.service.synko">
+	<section id="script.service.syncplay">
 		<category label="32000" id="syncplay">
 			<group label="32001" id="server">
 				<setting label="32002" id="address" type="string" help="">
@@ -48,6 +48,13 @@
 					<level>0</level>
 					<default>true</default>
 					<control type="toggle"></control>
+				</setting>
+				<setting label="32010" id="tolerance" type="integer" help="">
+					<level>2</level>
+					<default>500</default>
+					<control type="edit" format="integer">
+						<heading>32010</heading>
+					</control>
 				</setting>
 				<setting label="32006" id="debug" type="boolean" help="" class="">
 					<level>3</level>

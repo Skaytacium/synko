@@ -1,6 +1,6 @@
 # Kodi Media Center language file
-# Addon Name: synko
-# Addon id: script.service.synko
+# Addon Name: syncplay
+# Addon id: script.service.syncplay
 # Addon Provider: Skaytacium
 msgid ""
 msgstr ""
@@ -53,4 +53,8 @@ msgstr ""
 
 msgctxt "#32009"
 msgid "Password"
+msgstr ""
+
+msgctxt "#32010"
+msgid "Tolerance (ms)"
 msgstr ""
