@@ -11,6 +11,6 @@ This is technically a personal project, but if there are any issues or interesti
 
 ### To-do?
 
-- [] TLS support
+- [ ] TLS support
 	- Nah (unless someone opens a pull request)
 - [x] Better error handling?
