@@ -2,7 +2,6 @@ from json import dumps, loads
 from socket import AF_INET, SOCK_STREAM, socket
 
 from xbmcgui import Dialog
-from xbmc import log, LOGWARNING
 
 from syncplay.util import gs, gsi
 
@@ -22,7 +21,6 @@ def receive():
     for line in data:
         line=loads(line)
         retdat.append(line)
-    log("RETURN>>>\n" + str(retdat), LOGWARNING)
     return retdat
 
 
@@ -31,4 +29,3 @@ def send(data: dict):
     jsondat=dumps(data, separators=(",", ":"))
     # Uses \r\n by default. Why?
     sock.sendall((jsondat + "\r\n").encode("utf-8"))
-    log("SEND>>\n" + str(data), LOGWARNING)
