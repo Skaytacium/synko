@@ -7,7 +7,8 @@
 Wanted to watch movies on my TV with my friends. Got tired of waiting.
 
 ### And?
-This is technically a personal project, but if there are any issues or interesting enhancements then I'll probably add them.
+This is technically a personal project, but if there are any issues or interesting enhancements then I'll probably add them.  
+This is only tested on Kodi v19.4 (Matrix)
 
 ### To-do?
 
