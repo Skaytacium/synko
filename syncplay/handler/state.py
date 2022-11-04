@@ -2,9 +2,9 @@ from time import time
 
 from syncplay.kodi import player, setplaystate
 from syncplay.socket import send
-from syncplay.util import getrtt, gs
+from syncplay.util import getrtt, gs, gsi
 
-_state = {
+_cstate = {
     "ping": {
         "latencyCalculation": 0,
         "clientLatencyCalculation": 0.0,
@@ -19,61 +19,61 @@ _state = {
 
 def _setping(sping: dict):
     # Just return this to server, it'll handle generation too.
-    _state["ping"]["latencyCalculation"] = sping["latencyCalculation"]
+    _cstate["ping"]["latencyCalculation"] = sping["latencyCalculation"]
     # Server will return this and generation will be handled here.
-    _state["ping"]["clientLatencyCalculation"] = time()
+    _cstate["ping"]["clientLatencyCalculation"] = time()
     # Server needs to acknowledge our CLC and send an RTT for us to calculate ours.
     if "clientLatencyCalculation" in sping:
-        _state["ping"]["clientRtt"] = getrtt(
+        _cstate["ping"]["clientRtt"] = getrtt(
             sping["clientLatencyCalculation"],
             sping["serverRtt"]
         )
 
 
-def handle(info: dict):
-    _setping(info["ping"])
+def handle(sstate: dict):
+    _setping(sstate["ping"])
 
     curtime = player.getTime() if player.isPlaying() else 0.0
-    _state["playstate"]["position"] = 0.0 if curtime < 0 else curtime
+    _cstate["playstate"]["position"] = 0.0 if curtime < 0 else curtime
 
-    if "ignoringOnTheFly" in info:
-        iotf = info["ignoringOnTheFly"]
+    if "ignoringOnTheFly" in sstate:
+        iotf = sstate["ignoringOnTheFly"]
         # If server is asking for a change
         if "server" in iotf:
-            _state["ignoringOnTheFly"] = {
+            _cstate["ignoringOnTheFly"] = {
                 "server": iotf["server"]
             }
-            if info["playstate"]["setBy"] != gs("user"):
-                setplaystate(info["playstate"], _state["playstate"])
+            if sstate["playstate"]["setBy"] != gs("user"):
+                setplaystate(sstate["playstate"], _cstate["playstate"])
                 # Kodi is slow, help it out (playstate doesn't update fast enough)
-                _state["playstate"]["paused"] = info["playstate"]["paused"]
-                _state["playstate"]["position"] = info["playstate"]["position"]
+                _cstate["playstate"]["paused"] = sstate["playstate"]["paused"]
+                _cstate["playstate"]["position"] = sstate["playstate"]["position"]
         # If another client has already requested a change
-        elif "client" in info["ignoringOnTheFly"]:
-            setplaystate(info["playstate"], _state["playstate"])
-            del _state["ignoringOnTheFly"]
+        elif "client" in sstate["ignoringOnTheFly"]:
+            setplaystate(sstate["playstate"], _cstate["playstate"])
+            del _cstate["ignoringOnTheFly"]
     # Delete iotf if its not sent by the server
-    elif "ignoringOnTheFly" in _state:
-        del _state["ignoringOnTheFly"]
+    elif "ignoringOnTheFly" in _cstate:
+        del _cstate["ignoringOnTheFly"]
 
-    send({"State": _state})
+    send({"State": _cstate})
 
 
 def dispatch(position: float, paused: bool, seeked: bool):
-    if "ignoringOnTheFly" in _state:
+    if "ignoringOnTheFly" in _cstate:
         return
 
-    _state["playstate"]["position"] = position
+    _cstate["playstate"]["position"] = position
     if seeked:
-        _state["playstate"]["paused"] = _state["playstate"]["paused"]
-        _state["playstate"]["doSeek"] = seeked
+        _cstate["playstate"]["paused"] = _cstate["playstate"]["paused"]
+        _cstate["playstate"]["doSeek"] = seeked
     else:
-        _state["playstate"]["paused"] = paused
+        _cstate["playstate"]["paused"] = paused
 
-    _state["ignoringOnTheFly"] = {"client": 1}
+    _cstate["ignoringOnTheFly"] = {"client": 1}
 
-    send({"State": _state})
+    send({"State": _cstate})
 
     # Clear this, since state is stored globally
     if seeked:
-        del _state["playstate"]["doSeek"]
+        del _cstate["playstate"]["doSeek"]

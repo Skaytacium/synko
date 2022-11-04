@@ -49,3 +49,10 @@ def handle(info: dict):
             ), 
             sound=False
         )
+    elif "playlistChange" in info:
+        info = info["playlistChange"]
+        Dialog().notification(
+            "Syncplay",
+            "{} changed the playlist".format(info["user"]),
+            sound=False
+        )

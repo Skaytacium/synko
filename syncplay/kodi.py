@@ -36,32 +36,32 @@ class _Player(Player):
 
 player = _Player()
 
-def setplaystate(ps: dict, ops: dict):
+def setplaystate(sps: dict, cps: dict):
     if player.isPlaying():
-        if ps["paused"] != ops["paused"]:
+        if sps["paused"] != cps["paused"]:
             player.pause()
             Dialog().notification(
                 "Syncplay", 
-                "{} {}".format(ps["setBy"], "paused" if ps["paused"] else "resumed"),
+                "{} {}".format(sps["setBy"], "paused" if sps["paused"] else "resumed"),
                 sound=False
             )
-        if "doSeek" in ps and ps["doSeek"]:
-            player.seekTime(ps["position"])
+        if "doSeek" in sps and sps["doSeek"]:
+            player.seekTime(sps["position"])
             Dialog().notification(
                 "Syncplay",
                 "{} seeked to {}".format(
-                    ps["setBy"],
-                    str(timedelta(seconds=round(ps["position"])))
+                    sps["setBy"],
+                    str(timedelta(seconds=round(sps["position"])))
                 ),
                 sound=False
             )
         # Can't use math.isclose() as tolerance increases over higher numbers
         # https://www.desmos.com/calculator/3xv5xnh1hu
         # Defined in settings in ms
-        elif abs(ps["position"] - ops["position"]) >= float(gsi("tolerance"))/1000:
-            player.seekTime(ps["position"])
+        elif abs(sps["position"] - cps["position"]) >= float(gsi("tolerance"))/1000:
+            player.seekTime(sps["position"])
             Dialog().notification(
                 "Syncplay",
-                "Time difference with {}".format(ps["setBy"]),
+                "Time difference with {}".format(sps["setBy"]),
                 sound=False
             )
