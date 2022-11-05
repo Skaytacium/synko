@@ -52,9 +52,23 @@ def handle(sstate: dict):
         elif "client" in sstate["ignoringOnTheFly"]:
             setplaystate(sstate["playstate"], _cstate["playstate"])
             del _cstate["ignoringOnTheFly"]
-    # Delete iotf if its not sent by the server
-    elif "ignoringOnTheFly" in _cstate:
+    # Delete iotf if its not sent by the server and we don't have an iotf
+    elif "ignoringOnTheFly" in _cstate and "client" not in _cstate["ignoringOnTheFly"]:
         del _cstate["ignoringOnTheFly"]
+    # Don't check for time difference if we are iotf
+    else:
+        # Can't use math.isclose() as tolerance increases over higher numbers
+        # https://www.desmos.com/calculator/3xv5xnh1hu
+        # Defined in settings in msp
+        if abs(sstate["playstate"]["position"] - _cstate["playstate"]["position"]) >= float(gsi("tolerance"))/1000:
+            # NOTE: This will cause the Kodi syncplay client to literally be more
+            # synced than the actual syncplay client and will allow the tolerance
+            # to be configurable on a per-client basis, favoring the client with
+            # the least tolerance. While on the server this does say "x seeked..",
+            # it is actually setting the time difference to be within the tolerance
+            setplaystate(sstate["playstate"], _cstate["playstate"])
+            # Callback will cause a dispatch since iotf won't be set, and if it is,
+            # the contents of dispatch will be changed
 
     send({"State": _cstate})
 

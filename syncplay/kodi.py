@@ -1,10 +1,9 @@
 from datetime import timedelta
 
-from xbmc import Player
+from xbmc import Player, sleep
 from xbmcgui import Dialog
 
 from syncplay.handler import set, state
-from syncplay.util import gsi
 
 
 class _Player(Player):
@@ -25,6 +24,13 @@ class _Player(Player):
         state.dispatch(self.getTime(), False, False)
 
     def onPlayBackSeek(self, _t, _o):
+        # Kodi is slow, dispatch needs to get current time
+        # which doesn't update fast enough when seek is called.
+        # More useful if something is seeking from a stream.
+        # Dispatch twice, so that iotf is set and ping doesn't
+        # reset the seek state.
+        state.dispatch(self.getTime(), False, True)
+        sleep(200)
         state.dispatch(self.getTime(), False, True)
 
     def onPlayBackStopped(self):
@@ -55,11 +61,9 @@ def setplaystate(sps: dict, cps: dict):
                 ),
                 sound=False
             )
-        # Can't use math.isclose() as tolerance increases over higher numbers
-        # https://www.desmos.com/calculator/3xv5xnh1hu
-        # Defined in settings in ms
-        elif abs(sps["position"] - cps["position"]) >= float(gsi("tolerance"))/1000:
-            player.seekTime(sps["position"])
+        else:
+            # Seek to the oldest timestamp so that no content is lost
+            player.seekTime(min(sps["position"], cps["position"]))
             Dialog().notification(
                 "Syncplay",
                 "Time difference with {}".format(sps["setBy"]),
