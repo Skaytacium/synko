@@ -51,6 +51,8 @@ def handle(info: dict):
         )
     elif "playlistChange" in info:
         info = info["playlistChange"]
+        if info["user"] is None or info["user"] == gs("user"):
+            return
         Dialog().notification(
             "Syncplay",
             "{} changed the playlist".format(info["user"]),
