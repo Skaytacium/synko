@@ -15,6 +15,7 @@ _cstate = {
         "paused": True
     }
 }
+seeking = False
 
 
 def _setping(sping: dict):
@@ -55,8 +56,8 @@ def handle(sstate: dict):
     # Delete iotf if its not sent by the server and we don't have an iotf
     elif "ignoringOnTheFly" in _cstate and "client" not in _cstate["ignoringOnTheFly"]:
         del _cstate["ignoringOnTheFly"]
-    # Don't check for time difference if we are iotf
-    else:
+    # Don't check for time difference if we are seeking
+    elif not seeking:
         # Can't use math.isclose() as tolerance increases over higher numbers
         # https://www.desmos.com/calculator/3xv5xnh1hu
         # Defined in settings in msp

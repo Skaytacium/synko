@@ -3,7 +3,9 @@ from datetime import timedelta
 from xbmc import Player, sleep
 from xbmcgui import Dialog
 
-from syncplay.handler import set, state
+from syncplay.handler import set, state, hello
+from syncplay.socket import connect, disconnect
+from syncplay.util import gsi
 
 
 class _Player(Player):
@@ -27,17 +29,22 @@ class _Player(Player):
         # Kodi is slow, dispatch needs to get current time
         # which doesn't update fast enough when seek is called.
         # More useful if something is seeking from a stream.
-        # Dispatch twice, so that iotf is set and ping doesn't
-        # reset the seek state.
+        # Set this bool to make seeking super reliable.
+        state.seeking = True
+        sleep(gsi("seek"))
         state.dispatch(self.getTime(), False, True)
-        sleep(200)
-        state.dispatch(self.getTime(), False, True)
+        state.seeking = False
 
+    # Rejoin to show that nothing is playing.
     def onPlayBackStopped(self):
-        set.dispatch({"ready": False})
+        disconnect()
+        connect()
+        hello.dispatch()
 
     def onPlayBackEnded(self):
-        set.dispatch({"ready": False})
+        disconnect()
+        connect()
+        hello.dispatch()
 
 
 player = _Player()

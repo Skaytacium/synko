@@ -5,13 +5,22 @@ from xbmcgui import Dialog
 
 from syncplay.util import gs, gsi
 
-try:
-    sock = socket(AF_INET, SOCK_STREAM)
-    sock.connect((gs("address"), gsi("port")))
-except:
-    Dialog().notification("Couldn't connect to syncplay",
-                          "Request timed out; wrong server information?")
-    exit(1)
+# This is literally connected instantly, just keep it None for a bit.
+sock: socket = None  # type: ignore
+
+def connect():
+    global sock
+    
+    try:
+        sock = socket(AF_INET, SOCK_STREAM)
+        sock.connect((gs("address"), gsi("port")))
+    except:
+        Dialog().notification("Couldn't connect to syncplay",
+                            "Request timed out; wrong server information?")
+        exit(1)
+
+def disconnect():
+    sock.close()
 
 def receive():
     # 4096 seems like a decent power of two. Might change this later (very low possibility).
@@ -29,3 +38,5 @@ def send(data: dict):
     jsondat=dumps(data, separators=(",", ":"))
     # Uses \r\n by default. Why?
     sock.sendall((jsondat + "\r\n").encode("utf-8"))
+
+connect()

@@ -58,3 +58,7 @@ msgstr ""
 msgctxt "#32010"
 msgid "Tolerance (ms)"
 msgstr ""
+
+msgctxt "#32010"
+msgid "Seek tolerance (ms)"
+msgstr ""

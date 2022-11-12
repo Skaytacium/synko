@@ -9,7 +9,7 @@ from syncplay.util import gs
 
 mon = Monitor()
 
-hello.dispatch(gs("user"), gs("password"), gs("room"), gs("chat"))
+hello.dispatch()
 Dialog().notification("Connected to syncplay", "as {} on {}:{} in {}".format(
     gs("user"), gs("address"), gs("port"), gs("room")
 ))

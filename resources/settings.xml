@@ -56,6 +56,13 @@
 						<heading>32010</heading>
 					</control>
 				</setting>
+				<setting label="32011" id="seek" type="integer" help="">
+					<level>2</level>
+					<default>250</default>
+					<control type="edit" format="integer">
+						<heading>32011</heading>
+					</control>
+				</setting>
 				<setting label="32006" id="debug" type="boolean" help="" class="">
 					<level>3</level>
 					<default>false</default>
