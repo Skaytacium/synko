@@ -1,5 +1,5 @@
 <?xml version="1.0.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.service.syncplay" name="syncplay" version="1.3.0" provider-name="Skaytacium">
+<addon id="script.service.syncplay" name="syncplay" version="1.3.1" provider-name="Skaytacium">
 	<extension point="xbmc.service" library="addon.py"/>
 	<extension point="xbmc.addon.metadata">
 		<summary lang="en">Syncplay on Kodi</summary>
@@ -11,7 +11,7 @@
 		<website>https://skaytacium.com/projects/synko</website>
 		<forum>https://github.com/Skaytacium/synko/issues</forum>
 		<source>http://github.com/Skaytacium/synko</source>
-		<news> 1.3.0
+		<news> 1.3.1
 		</news>
 		<assets>
 			<icon>resources/icon.png</icon>
