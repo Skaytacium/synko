@@ -38,11 +38,13 @@ class _Player(Player):
     # Rejoin to show that nothing is playing.
     def onPlayBackStopped(self):
         disconnect()
+        sleep(500)
         connect()
         hello.dispatch()
 
     def onPlayBackEnded(self):
         disconnect()
+        sleep(500)
         connect()
         hello.dispatch()
 
