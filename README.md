@@ -8,7 +8,9 @@ Wanted to watch movies on my TV with my friends. Got tired of waiting.
 
 ### And?
 This is technically a personal project, but if there are any issues or interesting enhancements then I'll probably add them.  
-This is only tested on Kodi v19.4 (Matrix)
+Tested on:
+- Kodi 19.4 (Desktop + Google TV)
+- Kodi 19.5 (Desktop + Google TV)
 
 ### How?
 Download the repository as a zip file. Install it in Kodi.
