@@ -15,6 +15,7 @@ Tested on:
 - Nexus
 + 20.0 (Google TV)
 + 20.1 (Google TV)
++ 20.2 (Desktop + Google TV)
 
 ### How?
 Download the repository as a zip file. Install it in Kodi.
